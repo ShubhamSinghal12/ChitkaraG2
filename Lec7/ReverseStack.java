@@ -97,7 +97,7 @@ public class ReverseStack {
 			int x = st.pop();
 //			System.out.println(x);
 			rev3(st);
-			insert(st, x);;
+			insert(st, x);
 		}
 	}
 
