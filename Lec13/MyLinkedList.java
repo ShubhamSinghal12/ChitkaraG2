@@ -161,5 +161,218 @@ public class MyLinkedList {
 		temp.data = ele;
 	}
 	
+	public void reverse()
+	{
+		Node prev = null;
+		Node cur = this.head;
+		while(cur != null)
+		{
+			Node ahead = cur.next;
+			cur.next = prev;
+			
+			prev = cur;
+			cur = ahead;
+		}
+		this.head = prev;
+	}
+	private void revR(Node prev,Node cur)
+	{
+		if(cur == null)
+		{
+			this.head = prev;
+			return;
+		}
+		else
+		{
+			revR(cur,cur.next);
+			cur.next = prev;
+		}
+	}
+	private void revOR(Node prev)
+	{
+		if(prev.next == null)
+		{
+			this.head = prev;
+			return;
+		}
+		else
+		{
+			revOR(prev.next);
+			prev.next.next = prev;
+		}
+	}
+	public void reverseR()
+	{
+		Node temp = this.head;
+		this.revOR(this.head);
+		temp.next = null;
+	}
+	public void bubble_sort()
+	{
+		Node temp = this.head;
+		while(temp.next != null)
+		{
+			Node j = this.head;
+			while(j.next != null)
+			{
+				if(j.data > j.next.data)
+				{
+					int t = j.data;
+					j.data = j.next.data;
+					j.next.data = t;
+				}
+				j = j.next;
+			}
+			temp = temp.next;
+		}
+	}
 	
+	public int midV()
+	{
+		Node slow = this.head;
+		Node fast = this.head;
+		while(fast.next != null && fast.next.next != null)
+		{
+			slow = slow.next;
+			fast = fast.next.next;
+		}
+		return slow.data;
+		
+	}
+	private Node midN()
+	{
+		Node slow = this.head;
+		Node fast = this.head;
+		while(fast.next != null && fast.next.next != null)
+		{
+			slow = slow.next;
+			fast = fast.next.next;
+		}
+		return slow;
+		
+	}
+	
+	public static MyLinkedList merge(MyLinkedList a, MyLinkedList b)
+	{
+		MyLinkedList ans = new MyLinkedList();
+		Node i = a.head;
+		Node j = b.head;
+		while(i!=null && j!= null)
+		{
+			if(i.data < j.data)
+			{
+				ans.addLast(i.data);
+				i = i.next;
+			}
+			else
+			{
+				ans.addLast(j.data);
+				j = j.next;
+			}
+		}
+		while(i!=null)
+		{
+			ans.addLast(i.data);
+			i = i.next;
+		}
+		while(j!=null)
+		{
+			ans.addLast(j.data);
+			j = j.next;
+		}
+		return ans;
+	}
+	
+	public MyLinkedList merge2(MyLinkedList a, MyLinkedList b)
+	{
+		MyLinkedList ans = new MyLinkedList();
+		Node h = new Node(0);
+		Node i = a.head;
+		Node j = b.head;
+//		if(i.data < j.data)
+//		{
+//			h = i;
+//			i = i.next;
+//		}
+//		else
+//		{
+//			h = j;
+//			j = j.next;
+//		}
+		Node t = h;
+		while(i!=null && j!= null)
+		{
+			if(i.data < j.data)
+			{
+				h.next = i;
+				i = i.next;
+				h = h.next;
+			}
+			else
+			{
+				h.next = j;
+				j = j.next;
+				h = h.next;
+			}
+		}
+		while(i!=null)
+		{
+			h.next = i;
+			i = i.next;
+			h = h.next;
+		}
+		while(j!=null)
+		{
+			h.next = j;
+			j = j.next;
+			h = h.next;
+		}
+		ans.head = t.next;
+		return ans;
+	}
+	public void mergeSort()
+	{
+		MyLinkedList ans = this.mergeHelper();
+		this.head = ans.head;
+	}
+	private MyLinkedList mergeHelper()
+	{
+		if(this.size() <= 1)
+		{
+			MyLinkedList ll = new MyLinkedList();
+			ll.head = this.head;
+			return ll;
+		}
+		else
+		{
+			Node mid = this.midN();
+			MyLinkedList a = new MyLinkedList();
+			MyLinkedList b = new MyLinkedList();
+			a.head = this.head;
+			b.head = mid.next;
+			mid.next = null;
+			MyLinkedList sa = a.mergeHelper();
+			MyLinkedList sb = b.mergeHelper();
+			return merge(sa, sb);
+		}
+	}
+	public void dummyList()
+	{
+		
+	}
+	public boolean detectCycle()
+	{
+		Node slow = this.head;
+		Node fast = this.head;
+		while(fast != null && fast.next != null)
+		{
+			slow = slow.next;
+			fast = fast.next.next;
+			if(slow == fast)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
 }
