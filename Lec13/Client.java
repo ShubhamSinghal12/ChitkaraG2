@@ -37,16 +37,18 @@ public class Client {
 //		a.display();
 //		b.display();
 		
+//		MyLinkedList ll = new MyLinkedList();
+//		ll.addFirst(3);
+//		ll.addFirst(6);
+//		ll.addFirst(4);
+//		ll.addFirst(1);
+//		ll.addFirst(7);
+//		ll.addFirst(9);
+//		ll.display();
+//		ll.mergeSort();
+//		ll.display();
 		MyLinkedList ll = new MyLinkedList();
-		ll.addFirst(3);
-		ll.addFirst(6);
-		ll.addFirst(4);
-		ll.addFirst(1);
-		ll.addFirst(7);
-		ll.addFirst(9);
-		ll.display();
-		ll.mergeSort();
-		ll.display();
+		ll.dummyList();
 	}
 
 }
