@@ -407,4 +407,69 @@ public class MyLinkedList {
 		slow.next = null;
 	}
 	
+	public void fold_reorder()
+	{
+		Node mid = this.midN();
+		MyLinkedList a = new MyLinkedList();
+		MyLinkedList b = new MyLinkedList();
+		a.head = this.head;
+		b.head = mid.next;
+		mid.next = null;
+		
+		b.reverse();
+		Node nh = new Node(0);
+		Node temp = nh;
+		
+		Node i = a.head;
+		Node j = b.head;
+		while(i!=null||j!=null)
+		{
+			if(i!=null)
+			{
+				temp.next = i;
+				i = i.next;
+				temp = temp.next;
+			}
+			if(j!=null)
+			{
+				temp.next = j;
+				j = j.next;
+				temp = temp.next;
+			}
+		}
+		
+		this.head = nh.next;
+	}
+	
+	public void kreverse(int k)
+	{
+		this.head = kreverse(this.head, k);
+	}
+	
+	private Node kreverse(Node th,int k)
+	{
+		if(th == null)
+		{
+			return null;
+		}
+		Node temp = th;
+		for(int i = 1; i <= k; i++)
+		{
+			if(temp == null)
+				return th;
+			temp = temp.next;
+		}
+		Node prev = kreverse(temp, k);
+		Node cur = th;
+		while(cur!=temp)
+		{
+			Node ahead = cur.next;
+			cur.next = prev;
+			
+			prev = cur;
+			cur = ahead;
+		}
+		return prev;
+	}
+	
 }

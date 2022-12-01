@@ -47,8 +47,17 @@ public class Client {
 //		ll.display();
 //		ll.mergeSort();
 //		ll.display();
-		MyLinkedList ll = new MyLinkedList();
-		ll.dummyList();
+//		MyLinkedList ll = new MyLinkedList();
+//		ll.dummyList();
+		
+		MyLinkedList ll =new MyLinkedList();
+		for(int i = 1; i <= 8;i++)
+		{
+			ll.addLast(i);
+		}
+		ll.display();
+		ll.kreverse(3);
+		ll.display();
 	}
 
 }
