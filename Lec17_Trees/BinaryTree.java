@@ -1,5 +1,7 @@
 package Lec17_Trees;
 
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Scanner;
 
 public class BinaryTree {
@@ -20,7 +22,29 @@ public class BinaryTree {
 			left = right = null;
 		}
 	}
-	Node root;
+	private Node root;
+	
+	public void createTree2()
+	{
+		Node n1 = new Node(1);
+		Node n2 = new Node(2);
+		Node n3 = new Node(3);
+		Node n4 = new Node(4);
+		Node n5 = new Node(5);
+		Node n6 = new Node(6);
+		Node n7 = new Node(7);
+		Node n8 = new Node(8);
+		
+		this.root = n1;
+		n1.left = n2;
+		n1.right = n3;
+		n2.left = n4;
+		n2.right = n5;
+		n4.left = n7;
+		n5.right = n8;
+		n3.right = n6;
+		
+	}
 	public void createTree()
 	{
 		this.root = createTree(null, "");
@@ -53,7 +77,7 @@ public class BinaryTree {
 	{
 		this.display(this.root);
 	}
-	public void display(Node r)
+	private void display(Node r)
 	{
 		if(r == null)
 		{
@@ -76,8 +100,159 @@ public class BinaryTree {
 			display(r.right);	
 		}
 	}
+	public boolean find(int ele)
+	{
+		return this.find(root, ele);
+	}
+	private boolean find(Node r,int ele)
+	{
+		if(r == null)
+		{
+			return false;
+		}
+		else
+		{
+			return r.data == ele || find(r.left,ele) || find(r.right,ele);
+		}
+	}
 	
+	public int max()
+	{
+		return this.max(root);
+	}
+	private int max(Node r)
+	{
+		if(r == null)
+		{
+			return Integer.MIN_VALUE;
+		}
+		else
+		{
+			return Math.max(r.data, Math.max(max(r.left), max(r.right)));
+		}
+	}
+	public void preorder()
+	{
+		this.preorder(root);
+	}
 	
+	private void preorder(Node r)
+	{
+		if(r == null)
+		{
+			return;
+		}
+		else
+		{
+			System.out.print(r.data+" ");
+			preorder(r.left);
+			preorder(r.right);
+		}
+	}
+	
+	public void inorder()
+	{
+		this.inorder(root);
+	}
+	
+	private void inorder(Node r)
+	{
+		if(r == null)
+		{
+			return;
+		}
+		else
+		{
+			inorder(r.left);
+			System.out.print(r.data+" ");
+			inorder(r.right);
+		}
+	}
+	
+	public void postorder()
+	{
+		this.postorder(root);
+	}
+	
+	private void postorder(Node r)
+	{
+		if(r == null)
+		{
+			return;
+		}
+		else
+		{
+			postorder(r.left);
+			postorder(r.right);
+			System.out.print(r.data+" ");
+		}
+	}
+	public void bfs()
+	{
+		Queue<Node> qt = new LinkedList<>();
+		qt.add(root);
+		int counter = 1;
+		while(!qt.isEmpty())
+		{
+			Node r = qt.remove();
+			counter--;
+			System.out.print(r.data+" ");
+			if(r.left!=null)
+				qt.add(r.left);
+			if(r.right!=null)
+				qt.add(r.right);
+			if(counter == 0)
+			{
+				System.out.println();
+				counter = qt.size();
+			}
+		}
+	}
+	public void leftView()
+	{
+		Queue<Node> qt = new LinkedList<>();
+		qt.add(root);
+		int counter = 1;
+		System.out.print(qt.peek().data+" ");
+		while(!qt.isEmpty())
+		{
+			Node r = qt.remove();
+			counter--;
+//			System.out.print(r.data+" ");
+			if(r.left!=null)
+				qt.add(r.left);
+			if(r.right!=null)
+				qt.add(r.right);
+			if(counter == 0 && qt.size() != 0)
+			{
+				System.out.print(qt.peek().data+" ");
+				counter = qt.size();
+			}
+		}
+	}
+	
+	public void rightView()
+	{
+		Queue<Node> qt = new LinkedList<>();
+		qt.add(root);
+		int counter = 1;
+//		System.out.print(qt.peek().data+" ");
+		while(!qt.isEmpty())
+		{
+			Node r = qt.remove();
+			counter--;
+//			System.out.print(r.data+" ");
+			if(r.left!=null)
+				qt.add(r.left);
+			if(r.right!=null)
+				qt.add(r.right);
+			if(counter == 0)
+			{
+				System.out.print(r.data+" ");
+				counter = qt.size();
+			}
+		}
+	}
 
 }
 

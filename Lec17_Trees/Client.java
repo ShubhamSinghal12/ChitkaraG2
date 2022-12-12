@@ -6,9 +6,10 @@ public class Client {
 		// TODO Auto-generated method stub
 		//1 true 2 true 4 false false false true 3 false false
 		BinaryTree bt = new BinaryTree();
-		bt.createTree();
-		bt.display(bt.root);
-		
+		bt.createTree2();
+//		bt.bfs();
+//		bt.display();
+		bt.rightView();
 	}
 
 }
