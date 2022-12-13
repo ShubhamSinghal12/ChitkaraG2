@@ -95,6 +95,8 @@ public class AVL_Tree {
 			return r;
 		}
 	}
+	
+	
 	public void display()
 	{
 		this.display(this.root);
@@ -122,6 +124,67 @@ public class AVL_Tree {
 			display(r.right);	
 		}
 	}
+	
+	private int min(Node r)
+	{
+		if(r.left == null)
+			return r.data;
+		else
+			return min(r.left);
+	}
+	
+	public void delete(int ele)
+	{
+		this.root = delete(root, ele);
+	}
+	private Node delete(Node r,int ele)
+	{
+		if(r == null)
+			return null;
+		else if(r.data > ele)
+			r.left = delete(r.left, ele);
+		else if (r.data < ele)
+			r.right = delete(r.right, ele);
+		else
+		{
+			if(r.left == null && r.right == null)
+				return null;
+			else if (r.right == null)
+				return r.left;
+			else if (r.left == null)
+				return r.right;
+			else
+			{
+				int m = min(r.right);
+				r.data = m;
+				r.right = delete(r.right,m);
+			}
+		}
+		r.ht = Math.max(height(r.left), height(r.right)) + 1;
+		int bf = balancingFactor(r);
+		
+		if(bf > 1 && balancingFactor(r.left) >= 0)
+		{
+			return rightRotate(r);
+		}
+		else if(bf > 1 && balancingFactor(r.left) < 0)
+		{
+			r.left = leftRotate(r.left);
+			return rightRotate(r);
+		}
+		else if(bf < -1 && balancingFactor(r.right) <= 0)
+		{
+			return leftRotate(r);
+		}
+		else if(bf < -1 && balancingFactor(r.right) > 0)
+		{
+			r.right = rightRotate(r.right);
+			return leftRotate(r);
+		}
+		
+		return r;
+	}
+	
 	
 
 }
