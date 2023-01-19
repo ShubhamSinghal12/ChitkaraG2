@@ -9,7 +9,8 @@ public class Client {
 		bt.createTree2();
 //		bt.bfs();
 //		bt.display();
-		bt.rightView();
+//		bt.rightView();
+		bt.verticalOrder();
 	}
 
 }
